@@ -1,0 +1,534 @@
+/* 基本重置和全局样式 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    overflow-x: hidden; /* 防止水平滚动条 */
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+/* 头部/英雄区域 */
+#hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/hero-bg.jpeg') no-repeat center center/cover;
+    color: #fff;
+    min-height: 100vh; /* 占据整个视口高度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* 确保伪元素动画不溢出 */
+}
+
+#hero h1 {
+    font-size: 3.5em;
+    margin-bottom: 0.5em;
+    animation: fadeInDown 1s ease-out;
+}
+
+#hero p {
+    font-size: 1.5em;
+    margin-bottom: 1.5em;
+    animation: fadeInUp 1s ease-out 0.5s;
+    animation-fill-mode: backwards; /* 确保动画开始前元素不可见 */
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #ff6347; /* 鲜艳的橙红色 */
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: zoomIn 1s ease-out 1s;
+    animation-fill-mode: backwards;
+}
+
+.cta-button:hover {
+    background-color: #e5533d;
+    transform: scale(1.05);
+}
+
+/* 导航栏 */
+#navbar {
+    background: #333;
+    color: #fff;
+    padding: 1em 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+#navbar.scrolled {
+    background-color: rgba(51, 51, 51, 0.9);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#navbar ul {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+#navbar ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+#navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+#navbar ul li a:hover {
+    color: #ff6347;
+}
+
+/* 通用区域样式 */
+.scroll-section {
+    padding: 80px 0;
+    min-height: 80vh; /* 给每个区域足够的高度 */
+    opacity: 0; /* 初始不可见，用于滚动动画 */
+    transform: translateY(50px); /* 初始向下偏移，用于滚动动画 */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-section:nth-child(odd) {
+    background-color: #fff;
+}
+
+.scroll-section:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.scroll-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: #333;
+    position: relative;
+}
+
+.scroll-section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #ff6347;
+    margin: 10px auto 0;
+}
+
+/* 关于我区域 */
+#about .about-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ff6347;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+#about p {
+    font-size: 1.1em;
+    flex: 1;
+}
+
+/* 项目经历区域 */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-item {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* 确保图片不溢出 */
+}
+
+.project-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.project-item img {
+    width: 100%;
+    height: 200px; /* 固定高度 */
+    object-fit: cover; /* 保持图片比例并裁剪 */
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.project-item h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.project-item p {
+    font-size: 0.95em;
+    margin-bottom: 15px;
+}
+
+.project-link {
+    display: inline-block;
+    background-color: #5cb85c; /* 绿色 */
+    color: #fff;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.project-link:hover {
+    background-color: #4cae4c;
+}
+
+/* 工作经验区域 - 时间轴样式 */
+.timeline {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: #ff6347;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+    animation: drawLine 2s ease-out forwards;
+}
+
+@keyframes drawLine {
+    from { height: 0; }
+    to { height: 100%; }
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+
+/* 圆点 */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -17px;
+    background-color: white;
+    border: 4px solid #ff6347;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+    transform: scale(0);
+    animation: popIn 0.5s ease-out forwards;
+}
+
+/* 奇数项在左边 */
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+
+/* 偶数项在右边 */
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+/* 偶数项的圆点在左边 */
+.timeline-item:nth-child(even)::after {
+    left: -16px;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background-color: white;
+    position: relative;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInFromLeft 0.6s ease-out forwards;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    transform: translateX(20px);
+    animation-name: slideInFromRight;
+}
+
+.timeline-item:nth-child(1) .timeline-content, .timeline-item:nth-child(1)::after { animation-delay: 0.5s; }
+.timeline-item:nth-child(2) .timeline-content, .timeline-item:nth-child(2)::after { animation-delay: 1s; }
+.timeline-item:nth-child(3) .timeline-content, .timeline-item:nth-child(3)::after { animation-delay: 1.5s; }
+/* 为更多项添加延迟 */
+
+@keyframes popIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.timeline-content h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.timeline-content .date {
+    font-size: 0.9em;
+    color: #777;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.timeline-content ul {
+    padding-left: 20px;
+}
+
+/* 技能区域 */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.skill-category {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.skill-category h4 {
+    color: #ff6347;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.skill-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skill-category ul li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.skill-category ul li::before {
+    content: '\2713'; /* ✔ 符号 */
+    color: #ff6347;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* 联系方式区域 */
+#contact p {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.contact-links {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.contact-links li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.contact-links li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    border: 2px solid #ff6347;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-links li a:hover {
+    background-color: #ff6347;
+    color: #fff;
+}
+
+/* 页脚 */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px; /* 与最后一个区域的间距 */
+}
+
+/* 动画效果 */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* 响应式设计 */
+@media(max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    #hero h1 {
+        font-size: 2.5em;
+    }
+
+    #hero p {
+        font-size: 1.2em;
+    }
+
+    #navbar ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    #about .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-pic {
+        margin-bottom: 20px;
+    }
+
+    .timeline::after {
+        left: 31px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+
+    .timeline-item:nth-child(even) {
+        left: 0%;
+    }
+
+    .timeline-item::after {
+        left: 15px;
+    }
+
+    .timeline-item:nth-child(even)::after {
+        left: 15px; /* 保持在左侧 */
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+        transform: translateX(0);
+        animation-name: slideInFromLeft; /* 都从左侧滑入 */
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 粒子背景动画 (可选，如果需要更华丽的效果) */
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent; /* 透明背景 */
+    pointer-events: none; /* 允许点击穿透 */
+    z-index: -1; /* 在内容之后 */
+    /* 示例：简单的星星动画 */
+    /* background-image: radial-gradient(#fff 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: stars 200s linear infinite; */
+}
+
+/* @keyframes stars {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+} */
+
+/* 滚动指示器 (可选) */
+.scroll-down-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+}
+
+.scroll-down-indicator a {
+    color: #fff;
+    font-size: 2em;
+    text-decoration: none;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
