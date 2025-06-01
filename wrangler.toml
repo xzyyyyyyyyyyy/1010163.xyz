@@ -1,5 +1,5 @@
-name = "1010163-xyz"
+name = "1010163"
 compatibility_date = "2025-06-01"
 
 [env.production]
-pages_build_output_dir = "."  # 如果网站文件在根目录
+pages_build_output_dir = "."  
