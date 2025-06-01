@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="徐紫阳的个人简历网站 - 湖北大学通信工程专业学生，专注于软件开发和技术创新">
+    <meta name="keywords" content="徐紫阳,个人简历,湖北大学,通信工程,软件开发,编程">
+    <meta name="author" content="徐紫阳">
+    <meta name="robots" content="index,follow">
     <title>徐紫阳 - 个人简历</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
@@ -373,6 +377,36 @@
             padding: 20px 0;
         }
 
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .contact-info {
@@ -457,6 +491,15 @@
             
             .timeline-item::before {
                 left: 0;
+            }
+            
+            /* 移动端返回顶部按钮调整 */
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
             }
             
             /* 移动端时为导航菜单添加遮罩 */
@@ -701,6 +744,11 @@
         </div>
     </section>
 
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="back-to-top" onclick="scrollToTop()" title="返回顶部">
+        ↑
+    </button>
+
     <!-- 页脚 -->
     <footer>
         <div class="container">
@@ -766,6 +814,24 @@
             document.body.style.overflow = '';
         }
 
+        // 返回顶部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 显示/隐藏返回顶部按钮
+        function toggleBackToTopButton() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        }
+
         // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -780,7 +846,7 @@
             });
         });
 
-        // 导航栏高亮
+        // 导航栏高亮和返回顶部按钮显示
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.section, #hero');
             const navLinks = document.querySelectorAll('#navbar a');
@@ -800,6 +866,9 @@
                     link.classList.add('active');
                 }
             });
+            
+            // 控制返回顶部按钮显示
+            toggleBackToTopButton();
         });
 
         // 页面加载时初始化
