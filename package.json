@@ -5,8 +5,9 @@
   "main": "index.html",
   "scripts": {
     "dev": "python3 -m http.server 8000",
-    "build": "echo 'No build step needed for static site'",
-    "deploy": "wrangler pages deploy . --project-name=personal-resume"
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "wrangler pages deploy . --project-name=personal-resume",
+    "pages:deploy": "wrangler pages deploy ."
   },
   "keywords": ["resume", "portfolio", "static-site"],
   "author": "徐紫阳",
