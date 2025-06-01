@@ -1,5 +1,9 @@
 name = "1010163"
+main = "index.html"
 compatibility_date = "2025-06-01"
-[env.production]
-pages_build_output_dir = "."  
 
+[env.production]
+name = "1010163"
+
+[env.staging]
+name = "1010163"
