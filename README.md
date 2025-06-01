@@ -20,11 +20,6 @@
 - **易于部署**：只需要一个HTML文件即可运行
 - **优化完成**：已移除所有图片依赖，使用emoji图标
 
-### 备份版本 (index-backup.html)
-- **模块化设计**：使用外部CSS和JavaScript文件
-- **便于维护**：CSS和JS分离，便于大型项目维护
-- **功能相同**：与当前版本功能完全一致
-
 ## 技术特性
 
 - ✅ 使用主题色 #456452
@@ -34,33 +29,6 @@
 - ✅ 现代CSS Grid和Flexbox布局
 - ✅ 平滑滚动和交互动画
 - ✅ 本地存储主题偏好
-
-## 已清理的文件
-
-- `debug.html` - 调试测试文件
-- `index-fixed.html` - 临时修复文件
-- `images/` - 图片文件夹（hero-bg.jpeg, profile.jpg, project1.jpeg, project2.jpg, project3.jpeg）
-
-## 部署说明
-
-### 简单部署
-直接使用 `index.html` 文件，无需其他依赖。
-
-### 模块化部署
-如果需要使用模块化版本：
-1. 使用 `index-backup.html` 作为主文件
-2. 确保 `css/style.css` 和 `js/script.js` 文件存在
-3. 将 `index-backup.html` 重命名为 `index.html`
-
-## 本地开发
-
-```bash
-# 启动本地服务器
-python3 -m http.server 8000
-
-# 访问网站
-http://localhost:8000
-```
 
 ## 联系信息
 
