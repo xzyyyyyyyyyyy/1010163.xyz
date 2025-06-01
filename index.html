@@ -4,154 +4,627 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人简历</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 基本重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CSS变量 */
+        :root {
+            --primary-color: #456452;
+            --primary-light: #5a7a66;
+            --primary-dark: #344439;
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --card-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --card-bg: #2d2d2d;
+            --border-color: #404040;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 英雄区域 */
+        #hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* 导航栏 */
+        #navbar {
+            background: var(--card-bg);
+            padding: 1em 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        #navbar ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #navbar ul li {
+            margin: 0 1rem;
+        }
+
+        #navbar ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        #navbar ul li a:hover,
+        #navbar ul li a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 通用区域样式 */
+        .section {
+            padding: 80px 0;
+            min-height: 80vh;
+        }
+
+        .section:nth-child(odd) {
+            background-color: var(--bg-color);
+        }
+
+        .section:nth-child(even) {
+            background-color: var(--card-bg);
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+        }
+
+        /* 关于我区域 */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 30px;
+            color: white;
+        }
+
+        .basic-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* 项目网格 */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .project-item {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .project-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .tech-stack {
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: var(--primary-light);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* 技能网格 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .skill-category h4 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .skill-category ul li:last-child {
+            border-bottom: none;
+        }
+
+        /* 时间线 */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .date {
+            color: var(--primary-light);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* 联系方式 */
+        .contact-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-links li a {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-links li a:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            #navbar ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- 英雄区域 -->
     <header id="hero">
+        <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">
+            <span id="theme-icon">🌙</span>
+        </button>
         <div class="container">
-            <h1>你好，我是[你的名字]</h1>
-            <p>[你的头衔/简介，例如：一位充满热情的全栈开发者]</p>
+            <h1>你好，我是徐紫阳</h1>
+            <p>通信工程专业学生 | 湖北大学</p>
+            <div class="contact-info">
+                <div>📱 13097476344</div>
+                <div>✉️ xuziyang@gmail.com</div>
+                <div>🌐 xzy1.xyz</div>
+            </div>
             <a href="#contact" class="cta-button">联系我</a>
         </div>
     </header>
 
+    <!-- 导航栏 -->
     <nav id="navbar">
         <div class="container">
             <ul>
                 <li><a href="#hero">首页</a></li>
                 <li><a href="#about">关于我</a></li>
                 <li><a href="#projects">项目经历</a></li>
-                <li><a href="#experience">工作经验</a></li>
+                <li><a href="#education">教育背景</a></li>
                 <li><a href="#skills">技能</a></li>
                 <li><a href="#contact">联系方式</a></li>
             </ul>
         </div>
     </nav>
 
-    <section id="about" class="scroll-section">
+    <!-- 关于我 -->
+    <section id="about" class="section">
         <div class="container">
             <h2>关于我</h2>
             <div class="about-content">
-                <img src="images/profile.jpg" alt="个人头像" class="profile-pic">
-                <p>[一段关于你自己的详细介绍，可以包括你的热情、职业目标、以及一些个人爱好等。例如：我热衷于使用最新的技术构建美观且实用的web应用程序。在业余时间，我喜欢探索新的编程语言和框架，并且喜欢参与开源项目。]</p>
+                <div class="profile-icon">👨‍💻</div>
+                <p>我是湖北大学通信工程专业的学生，对计算机及软件开发有浓厚兴趣。积极参加各类编程竞赛和技术项目，在实践中不断提升自己的技术能力。除了编程，我还有音乐特长，吉他已达到10级水平。</p>
+                <div class="basic-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">专业年级</span>
+                        <span>通信工程2402班</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">学校</span>
+                        <span>湖北大学</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">入学时间</span>
+                        <span>2024年9月</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="scroll-section">
+    <!-- 项目经历 -->
+    <section id="projects" class="section">
         <div class="container">
             <h2>项目经历</h2>
             <div class="project-grid">
                 <div class="project-item">
-                    <img src="images/project1.jpeg" alt="项目1截图">
-                    <h3>项目名称 1</h3>
-                    <p>项目简介：简要描述这个项目是做什么的，以及你在其中扮演的角色和主要贡献。</p>
-                    <a href="#" class="project-link" target="_blank">查看项目</a>
+                    <div class="project-icon">📱</div>
+                    <h3>智游伴 - APP创意大赛</h3>
+                    <div class="project-badge">复赛一等奖</div>
+                    <p>使用 Uniapp 框架独立编写软件前端界面，实现完整的移动应用开发流程。该项目为旅游伴侣应用，提供智能行程规划功能。</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Uniapp</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">移动开发</span>
+                    </div>
                 </div>
                 <div class="project-item">
-                    <img src="images/project2.jpg" alt="项目2截图">
-                    <h3>项目名称 2</h3>
-                    <p>项目简介：简要描述这个项目是做什么的，以及你在其中扮演的角色和主要贡献。</p>
-                    <a href="#" class="project-link" target="_blank">查看项目</a>
+                    <div class="project-icon">🏆</div>
+                    <h3>智联境界 - 挑战杯项目</h3>
+                    <div class="project-badge">进行中</div>
+                    <p>使用 Uniapp 前端框架编写项目程序，负责前端界面设计与实现。项目专注于智能互联技术的创新应用。</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Uniapp</span>
+                        <span class="tech-tag">前端设计</span>
+                        <span class="tech-tag">UI/UX</span>
+                    </div>
                 </div>
                 <div class="project-item">
-                    <img src="images/project3.jpeg" alt="项目3截图">
-                    <h3>项目名称 3</h3>
-                    <p>项目简介：简要描述这个项目是做什么的，以及你在其中扮演的角色和主要贡献。</p>
-                    <a href="#" class="project-link" target="_blank">查看项目</a>
+                    <div class="project-icon">🌐</div>
+                    <h3>个人网页开发</h3>
+                    <div class="project-badge">独立完成</div>
+                    <p>运用 HTML/CSS/JS 技术实现响应式布局，完成个人网站的设计与开发。展示了现代web开发技术的应用。</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">响应式设计</span>
+                    </div>
                 </div>
-                <!-- 可以根据需要添加更多项目 -->
             </div>
         </div>
     </section>
 
-    <section id="experience" class="scroll-section">
+    <!-- 教育背景 -->
+    <section id="education" class="section">
         <div class="container">
-            <h2>工作经验</h2>
+            <h2>教育背景</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3>[公司名称] - [你的职位]</h3>
-                        <span class="date">[开始日期] - [结束日期]</span>
-                        <p>职责描述：详细描述你在这个职位上的主要工作内容和取得的成就。</p>
+                        <h3>湖北大学 - 通信工程专业</h3>
+                        <span class="date">2024.9 – 至今</span>
+                        <p>在校期间积极参与各类学术活动和竞赛项目，注重理论与实践相结合。</p>
                         <ul>
-                            <li>成就/贡献点 1</li>
-                            <li>成就/贡献点 2</li>
-                            <li>成就/贡献点 3</li>
+                            <li><strong>大一上学期：</strong>积极参加各类活动以及竞赛项目，在APP创意大赛中获得复赛一等奖</li>
+                            <li><strong>大二下学期：</strong>深度钻研专业知识，参与挑战杯项目开发</li>
+                            <li><strong>当前状态：</strong>参加计算机设计大赛，用Blender软件实现基本动画演示，正在准备三维数字化创新大赛</li>
                         </ul>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3>[公司名称] - [你的职位]</h3>
-                        <span class="date">[开始日期] - [结束日期]</span>
-                        <p>职责描述：详细描述你在这个职位上的主要工作内容和取得的成就。</p>
-                        <ul>
-                            <li>成就/贡献点 1</li>
-                            <li>成就/贡献点 2</li>
-                        </ul>
+                        <h3>学业规划</h3>
+                        <span class="date">规划目标</span>
+                        <p><strong>短期目标（大一大二）：</strong>系统学习编程语言，提高代码质量和知识储备，积极参与竞赛，在实践中提升自己。</p>
+                        <p><strong>长期目标（大三大四及未来）：</strong>研究各类问题，设计解决方案，发表技术论文或作品，申请技术实习岗位，积累企业项目经验，争取研究生资格或进入企业从事开发工作。</p>
                     </div>
                 </div>
-                <!-- 可以根据需要添加更多工作经验 -->
             </div>
         </div>
     </section>
 
-    <section id="skills" class="scroll-section">
+    <!-- 技能专长 -->
+    <section id="skills" class="section">
         <div class="container">
-            <h2>技能栈</h2>
+            <h2>技能专长</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h4>前端</h4>
+                    <h4>💻 编程语言</h4>
                     <ul>
-                        <li>HTML5</li>
-                        <li>CSS3 (Flexbox, Grid, Animations)</li>
-                        <li>JavaScript (ES6+)</li>
-                        <li>React / Vue / Angular</li>
-                        <li>Sass / LESS</li>
+                        <li>C语言</li>
+                        <li>HTML/CSS</li>
+                        <li>JavaScript</li>
+                        <li>Python (基础)</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h4>后端</h4>
+                    <h4>🛠️ 开发工具</h4>
                     <ul>
-                        <li>Node.js / Express</li>
-                        <li>Python / Django / Flask</li>
-                        <li>Java / Spring Boot</li>
-                        <li>数据库 (SQL, NoSQL)</li>
+                        <li>Git版本控制</li>
+                        <li>Visual Studio</li>
+                        <li>Uniapp框架</li>
+                        <li>响应式布局</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h4>其他</h4>
+                    <h4>🎨 设计能力</h4>
                     <ul>
-                        <li>Git & GitHub</li>
-                        <li>Docker</li>
-                        <li>CI/CD</li>
-                        <li>敏捷开发</li>
+                        <li>Blender基础建模</li>
+                        <li>三维设计</li>
+                        <li>动画演示</li>
+                        <li>UI/UX设计</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>🌟 其他技能</h4>
+                    <ul>
+                        <li>吉他 10 级</li>
+                        <li>英语技术文档阅读</li>
+                        <li>项目实践经验</li>
+                        <li>竞赛参与经验</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="scroll-section">
+    <!-- 联系方式 -->
+    <section id="contact" class="section">
         <div class="container">
             <h2>联系我</h2>
-            <p>如果你对我的经历感兴趣，或者有任何合作机会，欢迎随时联系我！</p>
+            <p style="text-align: center; margin-bottom: 30px;">如果你对我的经历感兴趣，或者有任何合作机会，欢迎随时联系我！</p>
             <ul class="contact-links">
-                <li><a href="mailto:[你的邮箱地址]">邮箱：[你的邮箱地址]</a></li>
-                <li><a href="[你的LinkedIn链接]" target="_blank">LinkedIn</a></li>
-                <li><a href="[你的GitHub链接]" target="_blank">GitHub</a></li>
-                <!-- 可以添加其他社交媒体或联系方式 -->
+                <li><a href="mailto:xuziyang@gmail.com">📧 邮箱</a></li>
+                <li><a href="tel:13097476344">📱 电话</a></li>
+                <li><a href="https://github.com/xzyyyyyyyyyyy" target="_blank">💻 GitHub</a></li>
+                <li><a href="https://xzy1.xyz" target="_blank">🌐 个人网站</a></li>
             </ul>
         </div>
     </section>
 
+    <!-- 页脚 -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 [你的名字]. 保留所有权利.</p>
+            <p>&copy; 2025 徐紫阳. 保留所有权利.</p>
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+        // 主题切换功能
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // 初始化主题
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 导航栏高亮
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section, #hero');
+            const navLinks = document.querySelectorAll('#navbar a');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - sectionHeight / 3) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+        });
+    </script>
 </body>
 </html>

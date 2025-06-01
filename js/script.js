@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('.scroll-section');
     const heroSection = document.getElementById('hero');
 
-    // 导航栏背景变化
+    // 初始化主题
+    initTheme();
+
+    // 导航栏背景变化和滚动效果
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // 更新导航栏激活状态 (可选)
+        // 更新导航栏激活状态
         const navLinks = navbar.querySelectorAll('ul li a');
         navLinks.forEach(link => {
             link.classList.remove('active');
@@ -35,6 +38,157 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // 平滑滚动到锚点
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // 初始检查视口内的元素
+    function initialCheck() {
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY + window.innerHeight >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                section.classList.add('visible');
+            }
+        });
+        
+        if (window.scrollY <= 50) {
+            navbar.classList.remove('scrolled');
+        }
+        
+        const homeLink = navbar.querySelector('a[href="#hero"]');
+        if (homeLink && pageYOffset < heroSection.offsetHeight / 2) {
+            homeLink.classList.add('active');
+        }
+    }
+    initialCheck();
+
+    // 添加功能
+    createScrollToTopButton();
+    addScrollDownIndicator();
+    addInteractiveAnimations();
+});
+
+// 主题切换功能
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    
+    localStorage.setItem('theme', newTheme);
+}
+
+// 初始化主题
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    const themeIcon = document.getElementById('theme-icon');
+    if (themeIcon) {
+        themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+}
+
+// 创建滚动到顶部按钮
+function createScrollToTopButton() {
+    const scrollToTopBtn = document.createElement('button');
+    scrollToTopBtn.innerHTML = '↑';
+    scrollToTopBtn.id = 'scrollToTopBtn';
+    scrollToTopBtn.style.cssText = `
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        width: 50px;
+        height: 50px;
+    `;
+    
+    document.body.appendChild(scrollToTopBtn);
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', () => {
+        scrollToTopBtn.style.display = window.pageYOffset > 300 ? 'block' : 'none';
+    });
+}
+
+// 添加滚动指示器
+function addScrollDownIndicator() {
+    const heroContainer = document.getElementById('hero').querySelector('.container');
+    if (heroContainer) {
+        const scrollIndicator = document.createElement('div');
+        scrollIndicator.style.cssText = `
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        `;
+        scrollIndicator.innerHTML = '<a href="#about" style="color: #fff; font-size: 24px; text-decoration: none;">↓</a>';
+        heroContainer.appendChild(scrollIndicator);
+    }
+}
+
+// 交互动画
+function addInteractiveAnimations() {
+    const projectItems = document.querySelectorAll('.project-item');
+    projectItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+}
+
+// 添加CSS动画
+const animationStyles = document.createElement('style');
+animationStyles.textContent = `
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+        40% { transform: translateY(-10px) translateX(-50%); }
+        60% { transform: translateY(-5px) translateX(-50%); }
+    }
+    
+    #navbar ul li a.active {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+    
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-color); }
+    ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+`;
+document.head.appendChild(animationStyles);
 
     // 平滑滚动到锚点
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
