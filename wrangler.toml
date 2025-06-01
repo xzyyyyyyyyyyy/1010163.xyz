@@ -4,7 +4,6 @@ compatibility_date = "2025-06-01"
 
 [site]
 bucket = "./public"
-entry-point = "workers-site"
 
 [env.production]
 name = "my-static-site-prod"
