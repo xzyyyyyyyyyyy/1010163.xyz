@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop - sectionHeight / 3) {
+            if (window.scrollY >= sectionTop - sectionHeight / 3) {
                 section.classList.add('visible');
                 currentSectionId = section.getAttribute('id');
             }
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.classList.add('active');
             }
             // 特殊处理 hero 区域的导航链接
-            if (currentSectionId === '' && pageYOffset < heroSection.offsetHeight / 2 && link.getAttribute('href') === '#hero'){
+            if (currentSectionId === '' && window.scrollY < heroSection.offsetHeight / 2 && link.getAttribute('href') === '#hero'){
                  link.classList.add('active');
             }
         });
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
             // 调整判断条件，使得页面加载时，视口内的 section 也能触发动画
-            if (pageYOffset + window.innerHeight >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+            if (window.scrollY + window.innerHeight >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
                 section.classList.add('visible');
             }
         });
@@ -77,8 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const timelineItems = document.querySelectorAll('.timeline-item');
     timelineItems.forEach((item, index) => {
         const content = item.querySelector('.timeline-content');
-        const dot = item.querySelector('::after'); // CSS伪元素不能直接通过JS选择和修改动画延迟，这里仅为示意
-                                                  // 动画延迟已在CSS中通过 :nth-child 实现
+        // CSS伪元素不能直接通过JS选择和修改动画延迟，动画延迟已在CSS中通过 :nth-child 实现
         if(content){
             // content.style.animationDelay = `${0.5 + index * 0.3}s`;
             // item.style.animationDelay = `${0.5 + index * 0.3}s`; // 如果item本身也有动画
