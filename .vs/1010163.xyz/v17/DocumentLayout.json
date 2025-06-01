@@ -53,14 +53,13 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "wrangler.toml",
-              "DocumentMoniker": "C:\\Users\\i\\Source\\Repos\\1010163.xyz\\wrangler.toml",
+              "DocumentMoniker": "C:\\Users\\i\\source\\repos\\1010163.xyz\\wrangler.toml",
               "RelativeDocumentMoniker": "wrangler.toml",
-              "ToolTip": "C:\\Users\\i\\Source\\Repos\\1010163.xyz\\wrangler.toml",
+              "ToolTip": "C:\\Users\\i\\source\\repos\\1010163.xyz\\wrangler.toml",
               "RelativeToolTip": "wrangler.toml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-06-01T10:03:02.728Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-01T10:03:02.728Z"
             },
             {
               "$type": "Document",
@@ -72,8 +71,11 @@
               "RelativeToolTip": "README.md",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-06-01T09:56:01.619Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-01T09:56:01.619Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
             }
           ]
         }
