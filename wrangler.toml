@@ -1,0 +1,8 @@
+<<<<<<< HEAD
+=======
+name = "1010163"
+compatibility_date = "2025-06-01"
+
+[env.production]
+pages_build_output_dir = "."  
+>>>>>>> 904ec4f9309ce6ba5ee121ec6a4ebf1e51eac2a9
