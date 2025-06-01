@@ -1,3 +1,2 @@
-# Cloudflare Pages 重定向规则
-# 如果访问不存在的路径，重定向到首页（用于 SPA）
+# Cloudflare Pages Redirects
 /*    /index.html   200

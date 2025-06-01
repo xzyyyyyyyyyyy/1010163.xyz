@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人简历</title>
+    <title>徐紫阳 - 个人简历</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         /* 基本重置 */
         * {
@@ -112,23 +113,50 @@
             box-shadow: var(--shadow);
         }
 
-        #navbar ul {
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .nav-menu {
             list-style: none;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
         }
 
-        #navbar ul li {
+        .nav-menu li {
             margin: 0 1rem;
         }
 
-        #navbar ul li a {
+        .nav-menu li a {
             color: var(--text-color);
             text-decoration: none;
             padding: 0.5rem 1rem;
             border-radius: 5px;
             transition: all 0.3s ease;
+            display: block;
         }
 
         #navbar ul li a:hover,
@@ -352,13 +380,127 @@
                 gap: 1rem;
             }
             
-            #navbar ul {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--card-bg);
                 flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 80px;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+                z-index: 1000;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-menu li {
+                margin: 1rem 0;
+                width: 100%;
                 text-align: center;
+            }
+            
+            .nav-menu li a {
+                padding: 1rem;
+                width: 100%;
+                font-size: 1.1rem;
             }
             
             .section h2 {
                 font-size: 2rem;
+            }
+            
+            /* 移动端优化 */
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .profile-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .project-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .basic-info-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .timeline-item {
+                margin-left: 0;
+                padding-left: 2rem;
+            }
+            
+            .timeline-item::before {
+                left: 0;
+            }
+            
+            /* 移动端时为导航菜单添加遮罩 */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        
+        /* 超小屏幕优化 */
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                width: 90%;
+                padding-top: 70px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .contact-info {
+                font-size: 0.9rem;
+            }
+            
+            .cta-button {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -384,16 +526,25 @@
     <!-- 导航栏 -->
     <nav id="navbar">
         <div class="container">
-            <ul>
-                <li><a href="#hero">首页</a></li>
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#projects">项目经历</a></li>
-                <li><a href="#education">教育背景</a></li>
-                <li><a href="#skills">技能</a></li>
-                <li><a href="#contact">联系方式</a></li>
-            </ul>
+            <div class="nav-container">
+                <div class="nav-logo">徐紫阳</div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <span id="hamburger-icon">☰</span>
+                </button>
+                <ul id="nav-menu" class="nav-menu">
+                    <li><a href="#hero" onclick="closeMobileMenu()">首页</a></li>
+                    <li><a href="#about" onclick="closeMobileMenu()">关于我</a></li>
+                    <li><a href="#projects" onclick="closeMobileMenu()">项目经历</a></li>
+                    <li><a href="#education" onclick="closeMobileMenu()">教育背景</a></li>
+                    <li><a href="#skills" onclick="closeMobileMenu()">技能</a></li>
+                    <li><a href="#contact" onclick="closeMobileMenu()">联系方式</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+    
+    <!-- 移动端导航遮罩 -->
+    <div id="nav-overlay" class="nav-overlay" onclick="closeMobileMenu()"></div>
 
     <!-- 关于我 -->
     <section id="about" class="section">
@@ -439,7 +590,7 @@
                 <div class="project-item">
                     <div class="project-icon">🏆</div>
                     <h3>智联境界 - 挑战杯项目</h3>
-                    <div class="project-badge">进行中</div>
+                    <div class="project-badge">大一下学期</div>
                     <p>使用 Uniapp 前端框架编写项目程序，负责前端界面设计与实现。项目专注于智能互联技术的创新应用。</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Uniapp</span>
@@ -585,6 +736,36 @@
             }
         }
 
+        // 移动端导航菜单控制
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const navOverlay = document.getElementById('nav-overlay');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            
+            navMenu.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            
+            // 切换汉堡菜单图标
+            if (navMenu.classList.contains('active')) {
+                hamburgerIcon.textContent = '✕';
+                document.body.style.overflow = 'hidden'; // 防止背景滚动
+            } else {
+                hamburgerIcon.textContent = '☰';
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const navOverlay = document.getElementById('nav-overlay');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+            hamburgerIcon.textContent = '☰';
+            document.body.style.overflow = '';
+        }
+
         // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -624,6 +805,20 @@
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             initTheme();
+        });
+
+        // 窗口大小改变时关闭移动端菜单
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // ESC键关闭移动端菜单
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+            }
         });
     </script>
 </body>

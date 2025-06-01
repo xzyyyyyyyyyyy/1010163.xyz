@@ -4,7 +4,10 @@
   "description": "```\r ├── index.html              # 主要网站文件（自包含，包含所有CSS和JS）\r ├── index-backup.html       # 备份版本（使用外部CSS/JS文件）\r ├── css/\r │   └── style.css          # 外部CSS文件（仅备份版本使用）\r ├── js/\r │   └── script.js          # 外部JavaScript文件（仅备份版本使用）\r └── README.md              # 项目说明文档\r ```",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "python3 -m http.server 8000 --directory public",
+    "start": "python3 -m http.server 8000 --directory public",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "wrangler pages publish public"
   },
   "repository": {
     "type": "git",
