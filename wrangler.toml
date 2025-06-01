@@ -7,3 +7,7 @@ bucket = "./public"
 
 [env.production]
 name = "my-static-site-prod"
+
+[[migrations]]
+tag = "v2"
+deleted_classes = ["Globe"]
