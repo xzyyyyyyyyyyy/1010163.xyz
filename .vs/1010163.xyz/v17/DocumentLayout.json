@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\i\\source\\repos\\1010163.xyz\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\i\\Source\\Repos\\1010163.xyz\\wrangler.toml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:wrangler.toml||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\i\\source\\repos\\1010163.xyz\\public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\i\\source\\repos\\1010163.xyz\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\i\\source\\repos\\1010163.xyz\\public\\favicon.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\favicon.svg||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\i\\source\\repos\\1010163.xyz\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\i\\source\\repos\\1010163.xyz\\workers-site\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:workers-site\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\i\\source\\repos\\1010163.xyz\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -37,46 +41,60 @@
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": ".gitignore",
-              "DocumentMoniker": "C:\\Users\\i\\source\\repos\\1010163.xyz\\.gitignore",
-              "RelativeDocumentMoniker": ".gitignore",
-              "ToolTip": "C:\\Users\\i\\source\\repos\\1010163.xyz\\.gitignore",
-              "RelativeToolTip": ".gitignore",
-              "ViewState": "AgIAABgAAAAAAAAAAADwvyAAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-06-01T10:04:28.73Z",
+              "Title": "favicon.svg",
+              "DocumentMoniker": "C:\\Users\\i\\source\\repos\\1010163.xyz\\public\\favicon.svg",
+              "RelativeDocumentMoniker": "public\\favicon.svg",
+              "ToolTip": "C:\\Users\\i\\source\\repos\\1010163.xyz\\public\\favicon.svg",
+              "RelativeToolTip": "public\\favicon.svg",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABRAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI2SURBVDhPlZVNaxNBGMf/s28JeSmkjcGAFTzkkNYKOVTxJKEHL7nUSz9FP4gHv4PgQXKxPXjx5KUVQiEvrRExptSkmmBCJW9mspmZx0O6wSa7KfnBH4Z9eH7zsDvDMlxzdHQUjsViTxljfueZG0opUalU8plMpjlbAxFN1\u002BVyeZNz/kMIMVwUzvmgWq1mDw4O1m/IrtGchRBC0zTNp\u002Bu6/5YEgsHgi42NjVdu0qlwGRhjRigU2nWTLi1kjME0TViWZUQikd1UKvUym82uOnVX4ZgTBleEwZ/58I4GU61gJbCKaDRqxOPxZ4lE4q7T6yrsNgmjvwQlMB8J2EOGXnsyLbvG6XUVMg0IrTGYfgAMCN9hNxJaY2CunR5Ch8szia8fxyA1W/FmofB\u002BSsfD5yYAoFaQqBXlrXJPIdHkXbYvFH5\u002Blvj0ZoTj1yPUTyX\u002Buw9zeAr7LULzm0Tji0TurY1hh8B7hJOsjdZ37zE9hYYPWH\u002Bk48FjA9t7Fnb2/djZ92N7z4IVBOAxpauw1yLk341RfD9G5XiMWkGglhe4PBO4OBEofxDotd2NrkLeJ5znBOpFiV5LoftbodtS6DQU6qcS5zmBUX8JoW4C/hUG0weQZBA2MB5ODrIVmNT0ycf3plQqbdm23SQi4n1FV3W5MHygiIjItu1fhUJh0/G4TugLMkTuaQvjC0xv2w2mQjWBSymHy4SIuGEY03M03ebw8DCcTCafSCkX/gJm0TRt2Gg0cul0ug8A/wCK43rme02JMgAAAABJRU5ErkJggg==",
+              "WhenOpened": "2025-07-14T16:50:54.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "package.json",
+              "DocumentMoniker": "C:\\Users\\i\\source\\repos\\1010163.xyz\\package.json",
+              "RelativeDocumentMoniker": "package.json",
+              "ToolTip": "C:\\Users\\i\\source\\repos\\1010163.xyz\\package.json",
+              "RelativeToolTip": "package.json",
+              "ViewState": "AgIAABsAAAAAAAAAAABQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-14T16:41:11.438Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "wrangler.toml",
-              "DocumentMoniker": "C:\\Users\\i\\source\\repos\\1010163.xyz\\wrangler.toml",
-              "RelativeDocumentMoniker": "wrangler.toml",
-              "ToolTip": "C:\\Users\\i\\source\\repos\\1010163.xyz\\wrangler.toml",
-              "RelativeToolTip": "wrangler.toml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-06-01T10:03:02.728Z",
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\i\\source\\repos\\1010163.xyz\\public\\index.html",
+              "RelativeDocumentMoniker": "public\\index.html",
+              "ToolTip": "C:\\Users\\i\\source\\repos\\1010163.xyz\\public\\index.html",
+              "RelativeToolTip": "public\\index.html",
+              "ViewState": "AgIAAAsEAAAAAAAAAAArwHkEAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-14T16:27:50.49Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "README.md",
-              "DocumentMoniker": "C:\\Users\\i\\source\\repos\\1010163.xyz\\README.md",
-              "RelativeDocumentMoniker": "README.md",
-              "ToolTip": "C:\\Users\\i\\source\\repos\\1010163.xyz\\README.md",
-              "RelativeToolTip": "README.md",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-06-01T09:56:01.619Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
+              "Title": "index.js",
+              "DocumentMoniker": "C:\\Users\\i\\source\\repos\\1010163.xyz\\workers-site\\index.js",
+              "RelativeDocumentMoniker": "workers-site\\index.js",
+              "ToolTip": "C:\\Users\\i\\source\\repos\\1010163.xyz\\workers-site\\index.js",
+              "RelativeToolTip": "workers-site\\index.js",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-07-14T16:27:45.935Z",
+              "EditorCaption": ""
             }
           ]
         }

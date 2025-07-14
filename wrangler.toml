@@ -1,6 +1,6 @@
 name = "1010163"
 main = "workers-site/index.js"
-compatibility_date = "2025-06-01"
+compatibility_date = "2025-07-15"
 
 [site]
 bucket = "./public"
