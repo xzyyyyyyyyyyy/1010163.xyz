@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>徐紫阳 - 个人简历</title>
+    <!-- favicon: SVG + fallbacks for different browsers/paths -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
+    <!-- relative fallback in case site is served from a subpath or opened via file:// -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <!-- data URI fallback (inline SVG) -->
+    <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%234c6e5f'/><text x='16' y='22' text-anchor='middle' fill='white' font-family='Arial' font-size='20' font-weight='bold'>徐</text></svg>" type="image/svg+xml">
+    <!-- iOS / touch icon (SVG acceptable on modern iOS) -->
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <!-- theme color for mobile browsers -->
+    <meta name="theme-color" content="#456452">
     <style>
         /* 基本重置 */
         * {
@@ -82,25 +94,16 @@
             100% { transform: translateX(0); opacity: 1; }
         }
 
-        @keyframes slideInFromRight {
-            0% { transform: translateX(100px); opacity: 0; }
-            100% { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            0% { transform: translateY(30px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        /* 英雄区域 */
+        /* Hero 区域 */
         #hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
-            min-height: 100vh;
+            text-align: center;
+            padding: 100px 0 80px;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             position: relative;
             overflow: hidden;
         }
@@ -112,57 +115,70 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            background-size: 200% 200%;
-            animation: shimmer 3s ease-in-out infinite;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1), transparent 50%);
+            pointer-events: none;
+        }
+
+        #hero .container {
+            position: relative;
+            z-index: 1;
         }
 
         #hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        #hero h1:hover {
-            animation: glow 2s ease-in-out infinite;
-            transform: scale(1.05);
-            cursor: default;
+            font-weight: 700;
         }
 
         #hero p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
+            opacity: 0.95;
         }
 
-        #hero p:hover {
-            transform: translateY(-5px);
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
+        /* 主题切换按钮 - 始终悬浮显示 */
         .theme-toggle {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
+            z-index: 99999;
+            background: var(--card-bg);
+            border: 2px solid var(--primary-color);
             border-radius: 50%;
             width: 50px;
             height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font-size: 24px;
-            color: white;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+            opacity: 0.95;
         }
 
         .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1) rotate(15deg);
-            animation: pulse 1s ease-in-out infinite;
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: var(--primary-color);
+            opacity: 1;
+            border-color: var(--primary-light);
+        }
+
+        .theme-toggle:active {
+            transform: rotate(15deg) scale(0.95);
+        }
+
+        /* 确保主题按钮在深色模式下也清晰可见 */
+        [data-theme="dark"] .theme-toggle {
+            background: var(--card-bg);
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="dark"] .theme-toggle:hover {
+            background: var(--primary-color);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
         }
 
         .contact-info {
@@ -175,14 +191,22 @@
             z-index: 2;
         }
 
+        .contact-info > a,
         .contact-info > div {
             transition: all 0.3s ease;
             padding: 10px 15px;
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
+            color: inherit;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
+        .contact-info > a:hover,
         .contact-info > div:hover {
             transform: translateY(-8px) scale(1.05);
             background: rgba(255, 255, 255, 0.2);
@@ -226,13 +250,14 @@
         }
 
         /* 导航栏 */
-        #navbar {
+            #navbar {
             background: var(--card-bg);
             padding: 1em 0;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: var(--shadow);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
 
@@ -556,6 +581,8 @@
 
         .skill-category:hover ul li {
             border-bottom-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            opacity: 1;
         }
 
         .skill-category ul li:last-child {
@@ -683,28 +710,297 @@
             transform: scale(1.05);
         }
 
-        /* 响应式设计 */
+        /* Ensure hero text remains readable on hover */
+        #hero, #hero h1, #hero p { color: white; }
+        #hero p:hover { color: white !important; }
+
+        /* Support Safari backdrop-filter */
+        .contact-info > a, .contact-info > div {
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Helper classes to replace inline styles */
+        .muted-note { margin-top: 10px; font-size: 0.9em; color: var(--primary-light); }
+        .link-primary { color: var(--primary-color); text-decoration: none; }
+        .contact-note { text-align: center; margin-bottom: 30px; transition: all 0.3s ease; padding: 15px; border-radius: 10px; }
+
+        /* 响应式设计 - 平板设备 */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .project-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        /* 响应式设计 - 移动设备 */
         @media (max-width: 768px) {
-            .contact-info {
-                flex-direction: column;
-                gap: 1rem;
+            .container {
+                padding: 0 15px;
             }
-            
+
+            /* 导航栏优化 */
+            #navbar {
+                padding: 0.5em 0;
+            }
+
             #navbar ul {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 5px;
             }
-            
-            .section h2 {
-                font-size: 2rem;
+
+            #navbar ul li {
+                margin: 5px;
+                flex: 0 0 auto;
+            }
+
+            #navbar ul li a {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            /* Hero 区域优化 */
+            #hero {
+                min-height: 70vh;
+                padding: 60px 0 40px;
             }
 
             #hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+                margin-bottom: 1rem;
             }
 
             #hero p {
-                font-size: 1.2rem;
+                font-size: 1rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .contact-info > a,
+            .contact-info > div {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 15px;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            /* 区域标题优化 */
+            .section {
+                padding: 50px 0;
+                min-height: 0;
+            }
+
+            .section h2 {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+
+            /* 个人简介优化 */
+            .profile-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .about-content p {
+                font-size: 1rem;
+                padding: 15px;
+                text-align: left;
+            }
+
+            .basic-info-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            /* 项目卡片优化 */
+            .project-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-item {
+                padding: 20px;
+            }
+
+            .project-icon {
+                font-size: 2.5rem;
+                margin-bottom: 15px;
+            }
+
+            .project-item h3 {
+                font-size: 1.1rem;
+                line-height: 1.4;
+            }
+
+            .project-item p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .tech-stack {
+                margin-top: 12px;
+            }
+
+            .tech-tag {
+                font-size: 0.75rem;
+                padding: 3px 8px;
+                margin-right: 5px;
+                margin-bottom: 5px;
+            }
+
+            /* 时间线优化 */
+            .timeline-item {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .timeline-item h3 {
+                font-size: 1.1rem;
+            }
+
+            .timeline-item p,
+            .timeline-item ul li {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            /* 技能网格优化 */
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .skill-category {
+                padding: 20px;
+            }
+
+            .skill-category h4 {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+            }
+
+            .skill-category ul li {
+                font-size: 0.95rem;
+                padding: 6px 0;
+            }
+
+            /* 联系方式优化 */
+            .contact-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .contact-links li {
+                width: 100%;
+            }
+
+            .contact-links li a {
+                display: block;
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+
+            /* 页脚优化 */
+            footer {
+                padding: 15px 0;
+                font-size: 0.9rem;
+            }
+
+            /* 主题切换按钮移动端优化 */
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                top: 15px;
+                right: 15px;
+            }
+
+            /* 禁用移动端的悬停动画效果 */
+            .project-item:hover,
+            .skill-category:hover,
+            .timeline-item:hover,
+            .info-item:hover {
+                transform: none;
+            }
+
+            /* 优化触摸目标大小 */
+            a, button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+
+        /* 响应式设计 - 小屏手机 */
+        @media (max-width: 480px) {
+            #hero h1 {
+                font-size: 1.75rem;
+            }
+
+            #hero p {
+                font-size: 0.95rem;
+            }
+
+            .section h2 {
+                font-size: 1.6rem;
+            }
+
+            #navbar ul li a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.85rem;
+            }
+
+            .project-item h3,
+            .timeline-item h3,
+            .skill-category h4 {
+                font-size: 1rem;
+            }
+        }
+
+        /* 横屏优化 */
+        @media (max-width: 768px) and (orientation: landscape) {
+            #hero {
+                min-height: 100vh;
+                padding: 40px 0;
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+        }
+
+        /* 大屏幕优化 */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1400px;
+            }
+
+            .project-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .section h2 {
+                font-size: 3rem;
             }
         }
 
@@ -744,18 +1040,20 @@
     </style>
 </head>
 <body>
+    <!-- 主题切换按钮 - 独立于其他元素 -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">
+        <span id="theme-icon">🌙</span>
+    </button>
+
     <!-- 英雄区域 -->
     <header id="hero">
-        <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">
-            <span id="theme-icon">🌙</span>
-        </button>
         <div class="container">
             <h1 class="fade-in-up">你好，我是徐紫阳</h1>
             <p class="fade-in-up">通信工程专业学生 | 湖北大学 </p>
             <div class="contact-info fade-in-up">
-                <div>📱 13097476344</div>
-                <div>✉️ xuziyang81@gmail.com</div>
-                <div>🌐 xzy1.xyz</div>
+                <a href="tel:13097476344">📱 13097476344</a>
+                <a href="mailto:xuziyang81@gmail.com">✉️ xuziyang81@gmail.com</a>
+                <a href="https://xzy1.xyz" target="_blank" rel="noopener noreferrer">🌐 xzy1.xyz</a>
             </div>
             <a href="#contact" class="cta-button fade-in-up">联系我</a>
         </div>
@@ -805,81 +1103,81 @@
         <div class="container">
             <h2 class="fade-in-up">项目经历</h2>
             <div class="project-grid">
-                <div class="project-item slide-in-left">
-                    <div class="project-icon">📱</div>
-                    <h3>智游伴 - APP创意大赛</h3>
-                    <div class="project-badge">复赛一等奖</div>
-                    <p>使用 Uniapp 框架独立编写软件前端界面，实现完整的移动应用开发流程。该项目为旅游伴侣应用，提供智能行程规划功能。</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Uniapp</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">移动开发</span>
-                    </div>
-                </div>
-                
+                <!-- 1. 互联网+ 排第一 -->
                 <div class="project-item fade-in-up">
-                    <div class="project-icon">🎯</div>
+                    <div class="project-icon">🌍</div>
                     <h3>声临其境 - 中国国际大学生创新大赛（互联网+）</h3>
-                    <div class="project-badge">通信技术验证</div>
-                    <p>在"声临其境"项目中负责通信技术验证，从技术层面验证通信架构的实际可行性，为项目方案提供通信解决方案，确保理论设计可实际稳定运行。</p>
+                    <div class="project-badge">省级银奖</div>
+                    <p>在 "声临其境" 项目中负责通信技术验证，从技术层面验证通信架构的实际可行性，为项目方案提供通信解决方案，确保理论设计可实际稳定运行。</p>
                     <div class="tech-stack">
                         <span class="tech-tag">通信技术</span>
                         <span class="tech-tag">架构验证</span>
                         <span class="tech-tag">技术方案</span>
                     </div>
-                    <p style="margin-top: 10px; font-size: 0.9em; color: var(--primary-light);">
-                        <a href="https://cy.ncss.cn/memberproject/detail/2c95810797a133f30197af2bc6e06ed4" target="_blank" style="color: var(--primary-color); text-decoration: none;">📎 项目链接</a>
-                    </p>
                 </div>
 
-                <div class="project-item slide-in-right">
-                    <div class="project-icon">🏆</div>
-                    <h3>智联境界 - 挑战杯项目</h3>
-                    <div class="project-badge">已完成</div>
-                    <p>使用 Uniapp 前端框架编写项目程序，负责前端界面设计与实现。项目专注于智能互联技术的创新应用。</p>
+                <!-- 2. 计算机设计大赛（新增） -->
+                <div class="project-item slide-in-left">
+                    <div class="project-icon">🤖</div>
+                    <h3>东方智慧 — 第18届中国大学生计算机设计大赛（2025）</h3>
+                    <div class="project-badge">国赛三等奖（微课与 AI 辅助教学）</div>
+                    <p>作品《东方智慧》在 2025 年（第 18 届）中国大学生计算机设计大赛中荣获国赛三等奖，作品类别为微课与 AI 辅助教学。负责课程内容设计、AI 助学模块原型与示范视频制作。</p>
                     <div class="tech-stack">
-                        <span class="tech-tag">Uniapp</span>
-                        <span class="tech-tag">前端设计</span>
-                        <span class="tech-tag">UI/UX</span>
+                        <span class="tech-tag">AI 助教</span>
+                        <span class="tech-tag">教育技术</span>
+                        <span class="tech-tag">多媒体制作</span>
                     </div>
                 </div>
 
-                <div class="project-item slide-in-left">
-                    <div class="project-icon">🎨</div>
+                <!-- 3. 全国三维设计大赛 -->
+                <div class="project-item slide-in-right">
+                    <div class="project-icon">🧊</div>
                     <h3>全国三维设计大赛</h3>
                     <div class="project-badge">校赛二等奖</div>
-                    <p>使用Blender软件实现基本动画演示，在全国三维数字化创新设计大赛中获得校赛二等奖，展示了三维建模和动画制作能力。</p>
+                    <p>使用 Blender 软件实现基本动画演示，在全国三维数字化创新设计大赛中获得校赛二等奖，展示了三维建模和动画制作能力。</p>
                     <div class="tech-stack">
                         <span class="tech-tag">Blender</span>
-                        <span class="tech-tag">3D建模</span>
+                        <span class="tech-tag">3D 建模</span>
                         <span class="tech-tag">动画制作</span>
                     </div>
                 </div>
 
+                <!-- 4. 湖北大学云网站 -->
                 <div class="project-item fade-in-up">
                     <div class="project-icon">☁️</div>
                     <h3>湖北大学云网站</h3>
                     <div class="project-badge">开发中</div>
-                    <p>为湖北大学长江新区的同学提供各种服务的网站平台，旨在改善校园生活便利性，提供综合性的学生服务解决方案。</p>
+                    <p>在大一暑假开发湖北大学云服务网站，为同学们提供各种校园服务，旨在改善校园生活便利性并逐步完善功能。</p>
                     <div class="tech-stack">
-                        <span class="tech-tag">Web开发</span>
+                        <span class="tech-tag">Web 开发</span>
                         <span class="tech-tag">服务平台</span>
                         <span class="tech-tag">校园服务</span>
                     </div>
-                    <p style="margin-top: 10px; font-size: 0.9em; color: var(--primary-light);">
-                        <a href="https://hubucloud.com" target="_blank" style="color: var(--primary-color); text-decoration: none;">🌐 访问网站</a>
-                    </p>
                 </div>
 
-                <div class="project-item slide-in-right">
-                    <div class="project-icon">🌐</div>
-                    <h3>个人网页开发</h3>
-                    <div class="project-badge">独立完成</div>
-                    <p>运用 HTML/CSS/JS 技术实现响应式布局，完成个人网站的设计与开发。展示了现代web开发技术的应用。</p>
+                <!-- 5. 智联境界（挑战杯） - 未获奖但积累经验 -->
+                <div class="project-item slide-in-left">
+                    <div class="project-icon">🔗</div>
+                    <h3>智联境界 - 挑战杯项目</h3>
+                    <div class="project-badge">进行中</div>
+                    <p>项目专注于智能互联技术的创新应用。虽然未获得最终奖项，但在研发与协作过程中积累了丰富实践经验，提升了方案设计和项目管理能力。</p>
                     <div class="tech-stack">
-                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">系统设计</span>
+                        <span class="tech-tag">原型实现</span>
+                        <span class="tech-tag">团队协作</span>
+                    </div>
+                </div>
+
+                <!-- 6. 智游伴（放最后） -->
+                <div class="project-item slide-in-right">
+                    <div class="project-icon">✈️</div>
+                    <h3>智游伴 - APP 创意大赛</h3>
+                    <div class="project-badge">复赛一等奖</div>
+                    <p>使用 Uniapp 框架独立编写软件前端界面，实现完整的移动应用开发流程。该项目为旅游伴侣应用，提供智能行程规划与行程推荐功能。</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Uniapp</span>
                         <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">响应式设计</span>
+                        <span class="tech-tag">移动开发</span>
                     </div>
                 </div>
             </div>
@@ -897,9 +1195,8 @@
                         <span class="date">2024.9 – 至今</span>
                         <p>在校期间积极参与各类学术活动和竞赛项目，注重理论与实践相结合。现为余日季数字未来实验室成员。</p>
                         <ul>
-                            <li><strong>大一上学期：</strong>积极参加各类活动以及竞赛项目，在APP创意大赛中获得复赛一等奖</li>
-                            <li><strong>大一下学期：</strong>参与挑战杯项目、计算机设计大赛、全国三维设计大赛、互联网+等多个竞赛项目</li>
-                            <li><strong>大一暑假（当前）：</strong>正在考驾照，跟实验室学习AR制作技术，开发湖北大学云服务网站</li>
+                            <li><strong>大一暑假：</strong>独立开发并上线了湖北大学云服务网站，为同学们提供校园服务与工具，积累了全栈开发与运维经验。</li>
+                            <li><strong>大二上学期（当前）：</strong>准备认真学习通信工程的专业知识，计划系统掌握通信原理与实践，同时已通过驾照考试；后续目标包括继续优化湖北大学云服务网站并积极参与更多竞赛以丰富实践经验。</li>
                         </ul>
                     </div>
                 </div>
@@ -907,8 +1204,8 @@
                     <div class="timeline-content">
                         <h3>学业规划</h3>
                         <span class="date">规划目标</span>
-                        <p><strong>短期目标（大一大二）：</strong>系统学习编程语言，提高代码质量和知识储备，积极参与竞赛，在实践中提升自己。深入学习AR技术和通信工程专业知识。</p>
-                        <p><strong>长期目标（大三大四及未来）：</strong>研究各类问题，设计解决方案，发表技术论文或作品，申请技术实习岗位，积累企业项目经验，争取研究生资格或进入企业从事开发工作。</p>
+                        <p><strong>短期目标（大二）：</strong>系统学习通信知识，提升理论基础与实验能力，优化现有项目并参加更多竞赛。</p>
+                        <p><strong>中长期目标：</strong>寻求实习与项目机会，积累工程经验，争取更高的学术或行业发展机会。</p>
                     </div>
                 </div>
             </div>
@@ -973,12 +1270,12 @@
     <section id="contact" class="section">
         <div class="container">
             <h2 class="fade-in-up">联系我</h2>
-            <p class="fade-in-up" style="text-align: center; margin-bottom: 30px; transition: all 0.3s ease; padding: 15px; border-radius: 10px;">如果你对我的经历感兴趣，或者有任何合作机会，欢迎随时联系我！</p>
+            <p class="fade-in-up contact-note">如果你对我的经历感兴趣，或者有任何合作机会，欢迎随时联系我！</p>
             <ul class="contact-links">
                 <li class="slide-in-left"><a href="mailto:xuziyang@gmail.com">📧 邮箱</a></li>
                 <li class="fade-in-up"><a href="tel:13097476344">📱 电话</a></li>
-                <li class="slide-in-right"><a href="https://github.com/xzyyyyyyyyyyy" target="_blank">💻 GitHub</a></li>
-                <li class="fade-in-up"><a href="https://xzy1.xyz" target="_blank">🌐 个人网站</a></li>
+                <li class="slide-in-right"><a href="https://github.com/xzyyyyyyyyyyy" target="_blank" rel="noopener noreferrer">💻 GitHub</a></li>
+                <li class="fade-in-up"><a href="https://xzy1.xyz" target="_blank" rel="noopener noreferrer">🌐 个人网站</a></li>
             </ul>
         </div>
     </section>
@@ -1114,8 +1411,8 @@
             initScrollAnimations();
             addMouseFollowEffect();
             
-            // 为段落文本添加悬停时的文字特效
-            document.querySelectorAll('p, li').forEach(element => {
+            // 为段落文本添加悬停时的文字特效（排除技能列表）
+            document.querySelectorAll('p:not(.skill-category p), li:not(.skill-category li)').forEach(element => {
                 element.addEventListener('mouseenter', function() {
                     this.style.transition = 'all 0.3s ease';
                     this.style.transform = 'translateX(5px)';
