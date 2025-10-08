@@ -1,13 +1,22 @@
-name = "1010163"
-main = "workers-site/index.js"
-compatibility_date = "2025-07-15"
+# Cloudflare Pages configuration for this static site
+# If you want to bind an account_id or project_name, uncomment and fill them.
+# account_id = "<your-account-id>"
+# project_name = "1010163"
 
+# For Pages (static site) we only need to point to the directory containing the built site
 [site]
 bucket = "./public"
 
-[env.production]
-name = "my-static-site-prod"
+# compatibility_date is harmless but not required for simple Pages sites
+compatibility_date = "2025-07-15"
 
-[[migrations]]
-tag = "v2"
-deleted_classes = ["Globe"]
+# Pages-specific config so wrangler can deploy non-interactively
+# Set the folder that contains the built static files (same as site.bucket)
+pages_build_output_dir = "public"
+
+# If you already have a Pages project created in Cloudflare, set its name here
+# (the CLI failed earlier because a project with name "1010163-xyz" already exists)
+project_name = "1010163-xyz"
+
+# Optional: uncomment and fill your account id if you want to pin deploys to a specific account
+# account_id = "<your-account-id>"
